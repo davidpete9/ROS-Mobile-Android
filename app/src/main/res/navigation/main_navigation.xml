@@ -30,6 +30,21 @@
             app:destination="@id/detailWidgetDepth1" />
     </fragment>
 
+    <fragment
+        android:id="@+id/cameraXFragment"
+        android:name="com.schneewittchen.rosandroid.ui.fragments.details.CameraXFragment"
+        android:label="CameraXFragment"
+        tools:layout="@layout/fragment_camera_x" >
+    </fragment>
+
+    <action
+        android:id="@+id/action_to_camerax_fragment"
+        app:destination="@id/cameraXFragment"
+        app:popUpTo="@id/main_navigation"
+        app:popUpToInclusive="true"
+        />
+
+
     <action
         android:id="@+id/action_to_detailFragment"
         app:destination="@id/detailOverviewFragment"

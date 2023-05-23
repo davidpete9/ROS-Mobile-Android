@@ -12,6 +12,8 @@
         <item>Logger</item>
         <item>RqtPlot</item>
         <item>Viz2D</item>
+        <item>CameraPub</item>
+        <item>Imu</item>
     </string-array>
 
     <string-array name="layer_names">
@@ -24,6 +26,10 @@
 
 
     <!--___________________________Layers____________________________-->
+
+    <string name="CameraPub_description">
+        Camera image publisher
+    </string>
 
     <!-- GridMap -->
     <string name="GridMap_description">
@@ -48,6 +54,10 @@
         Displays a pose from a geometry_msgs::PoseStamped message.
     </string>
 
+    <!-- Pose -->
+    <string name="Imu_description">
+        IMU publisher
+    </string>
 
     <!-- TouchGoal -->
     <string name="TouchGoal_description">

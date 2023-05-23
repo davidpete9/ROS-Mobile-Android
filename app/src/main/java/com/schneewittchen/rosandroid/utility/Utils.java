@@ -70,6 +70,7 @@ public class Utils {
      */
     public static String getStringByName(Context context, String resourceName) {
         String packageName = context.getPackageName();
+        Log.d("IMUTEST",resourceName);
         int resourceId = context.getResources().getIdentifier(resourceName, "string", packageName);
         return context.getResources().getString(resourceId);
     }

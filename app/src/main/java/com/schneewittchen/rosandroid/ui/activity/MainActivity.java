@@ -1,10 +1,15 @@
 package com.schneewittchen.rosandroid.ui.activity;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
@@ -14,6 +19,7 @@ import com.schneewittchen.rosandroid.R;
 import com.schneewittchen.rosandroid.ui.fragments.intro.IntroFragment;
 import com.schneewittchen.rosandroid.ui.fragments.main.MainFragment;
 import com.schneewittchen.rosandroid.ui.fragments.main.OnBackPressedListener;
+import com.schneewittchen.rosandroid.widgets.camerapub.CameraPubView;
 
 
 /**
@@ -29,6 +35,7 @@ import com.schneewittchen.rosandroid.ui.fragments.main.OnBackPressedListener;
  */
 public class MainActivity extends AppCompatActivity {
 
+    private static boolean CAM_SERVICE_STARTED_ALREADY = false;
     public static String TAG = MainActivity.class.getSimpleName();
     private static final int LOCATION_PERM = 101;
 
@@ -36,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
 
         try {
@@ -80,7 +86,8 @@ public class MainActivity extends AppCompatActivity {
     private void requestPermissions() {
         String[] permissions = new String[] {
                 Manifest.permission.ACCESS_NETWORK_STATE,
-                Manifest.permission.ACCESS_FINE_LOCATION};
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.CAMERA};
         ActivityCompat.requestPermissions(this, permissions, LOCATION_PERM);
     }
 

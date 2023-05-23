@@ -23,10 +23,14 @@ import com.schneewittchen.rosandroid.model.repositories.rosRepo.message.RosData;
 import com.schneewittchen.rosandroid.model.repositories.rosRepo.message.Topic;
 import com.schneewittchen.rosandroid.model.repositories.rosRepo.node.AbstractNode;
 import com.schneewittchen.rosandroid.model.repositories.rosRepo.node.BaseData;
+import com.schneewittchen.rosandroid.model.repositories.rosRepo.node.ImagePublisherNode;
+import com.schneewittchen.rosandroid.model.repositories.rosRepo.node.ImuPublisherNode;
 import com.schneewittchen.rosandroid.model.repositories.rosRepo.node.NodeMainExecutorService;
 import com.schneewittchen.rosandroid.model.repositories.rosRepo.node.NodeMainExecutorServiceListener;
 import com.schneewittchen.rosandroid.model.repositories.rosRepo.node.PubNode;
 import com.schneewittchen.rosandroid.model.repositories.rosRepo.node.SubNode;
+import com.schneewittchen.rosandroid.widgets.camerapub.ICameraPublisherEntity;
+import com.schneewittchen.rosandroid.widgets.imu.IImuPublisher;
 
 import org.ros.address.InetAddressFactory;
 import org.ros.internal.node.client.MasterClient;
@@ -302,6 +306,7 @@ public class RosRepository implements SubNode.NodeListener {
         context.bindService(serviceIntent, serviceConnection, Context.BIND_AUTO_CREATE);
     }
 
+    private static boolean SERVICE_ALREADY_STARTED = false;
     /**
      * Create a node for a specific widget entity.
      * The node will be created and subsequently registered.
@@ -314,8 +319,16 @@ public class RosRepository implements SubNode.NodeListener {
         // Create a new node from widget
         AbstractNode node;
         if (widget instanceof IPublisherEntity) {
-            node = new PubNode();
-
+            if (widget instanceof ICameraPublisherEntity) {
+                node = ImagePublisherNode.getInstance();
+            }
+            else if (widget instanceof IImuPublisher) {
+                node = ImuPublisherNode.getInstance();
+                ((ImuPublisherNode)node).initIMU(this.contextReference.get());
+            }
+            else {
+                node = new PubNode();
+            }
         } else if (widget instanceof ISubscriberEntity) {
             node = new SubNode(this);
 

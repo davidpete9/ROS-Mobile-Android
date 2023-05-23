@@ -93,7 +93,7 @@ public class SshRepositoryImpl implements SshRepository {
         new Thread(() -> {
             try {
                 assert ssh != null;
-                startSessionTask(ssh.username, ssh.password, ssh.ip, ssh.port);
+                startSessionTask(ssh.username, ssh.password, ssh.ip, ssh.port, ssh.host_port, ssh.remote_host, ssh.remote_port);
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -101,7 +101,8 @@ public class SshRepositoryImpl implements SshRepository {
         }).start();
     }
 
-    private void startSessionTask(String username, String password, String ip, int port) throws JSchException, IOException {
+    private void startSessionTask(String username, String password, String ip, int port,
+                                  int host_port, String remote_host, int remote_port) throws JSchException, IOException {
         // Check if session already running
         if(session != null && session.isConnected()){
             Log.i(TAG, "Session is running already");
@@ -115,6 +116,12 @@ public class SshRepositoryImpl implements SshRepository {
         session = jsch.getSession(username, ip, port);
         session.setPassword(password);
 
+        if (host_port > 0 && remote_port > 0) {
+            //Assigned port would be almost always the same than host port. TODO
+            int assigned_port = session.setPortForwardingL(host_port,
+                    remote_host, remote_port);
+            Log.i("TST", "Tunnel set up -L:" + host_port + ":" + remote_host + ":" + remote_port + " Assigned port: " + assigned_port);
+        }
         // Avoid asking for key confirmation
         java.util.Properties prop = new java.util.Properties();
         prop.put("StrictHostKeyChecking", "no");

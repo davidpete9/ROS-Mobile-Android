@@ -1,5 +1,6 @@
 package com.schneewittchen.rosandroid.ui.fragments.details;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import com.google.android.material.button.MaterialButton;
 import com.schneewittchen.rosandroid.BuildConfig;
 import com.schneewittchen.rosandroid.R;
 import com.schneewittchen.rosandroid.model.entities.widgets.BaseEntity;
+import com.schneewittchen.rosandroid.ui.activity.MainActivity;
 import com.schneewittchen.rosandroid.ui.general.WidgetChangeListener;
 import com.schneewittchen.rosandroid.ui.views.details.DetailViewHolder;
 import com.schneewittchen.rosandroid.utility.Constants;
@@ -39,7 +41,7 @@ public class DetailContentFragment extends Fragment implements WidgetChangeListe
 
     private NavController navController;
     private DetailsViewModel viewModel;
-    private ViewGroup widgetContainer;
+    private ViewGroup   widgetContainer;
     private MaterialButton backButtonOverview;
     private MaterialButton backButtonGroup;
     private DetailViewHolder widgetHolder;
@@ -103,6 +105,7 @@ public class DetailContentFragment extends Fragment implements WidgetChangeListe
         try {
             // create and init widget view
             String layoutStr = String.format(Constants.DETAIL_LAYOUT_FORMAT, entity.type.toLowerCase());
+            Log.i("IMUTEST",layoutStr);
             int detailContentLayout = Utils.getResId(layoutStr, R.layout.class);
             LayoutInflater inflator = LayoutInflater.from(widgetContainer.getContext());
             View itemView = inflator.inflate(detailContentLayout, widgetContainer, false);

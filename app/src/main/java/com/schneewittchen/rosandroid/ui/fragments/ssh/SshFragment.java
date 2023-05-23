@@ -3,6 +3,7 @@ package com.schneewittchen.rosandroid.ui.fragments.ssh;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -112,6 +113,7 @@ public class SshFragment extends Fragment implements TextView.OnEditorActionList
         super.onActivityCreated(savedInstanceState);
 
         mViewModel = new ViewModelProvider(this).get(SshViewModel.class);
+        Log.i("TST", "ViewModel: "+mViewModel.toString());
 
         // Define ViewModel Connection ------
         mViewModel.getSSH().observe(getViewLifecycleOwner(), ssh -> {
@@ -120,6 +122,8 @@ public class SshFragment extends Fragment implements TextView.OnEditorActionList
             binding.portEditText.setText(Integer.toString(ssh.port));
             binding.usernameEditText.setText(ssh.username);
             binding.passwordEditText.setText(ssh.password);
+            binding.remoteportEditText.setText(Integer.toString(ssh.remote_port));
+            binding.hostportEditText.setText(Integer.toString(ssh.host_port));
         });
 
         // Connect Buttons
@@ -197,6 +201,8 @@ public class SshFragment extends Fragment implements TextView.OnEditorActionList
         Editable sshIp = binding.ipAddressEditText.getText();
 
         if (sshIp != null) {
+            Log.i("TST",mViewModel.toString());
+            Log.i("TST",sshIp.toString());
             mViewModel.setSshIp(sshIp.toString());
         }
 
@@ -217,6 +223,17 @@ public class SshFragment extends Fragment implements TextView.OnEditorActionList
         if (sshUsername != null) {
             mViewModel.setSshUsername(sshUsername.toString());
         }
+
+        Editable sshHostPort = binding.hostportEditText.getText();
+        if (sshHostPort != null) {
+            mViewModel.setSshHostPort(sshHostPort.toString());
+        }
+
+        Editable sshRemotePort = binding.remoteportEditText.getText();
+        if (sshRemotePort != null) {
+            mViewModel.setSshRemotePort(sshRemotePort.toString());
+        }
+
     }
 
 }

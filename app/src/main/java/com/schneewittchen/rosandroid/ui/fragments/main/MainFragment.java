@@ -27,6 +27,7 @@ import androidx.navigation.Navigation;
 import com.google.android.material.tabs.TabLayout;
 import com.schneewittchen.rosandroid.R;
 import com.schneewittchen.rosandroid.databinding.UpdatePopupWindowBinding;
+import com.schneewittchen.rosandroid.ui.fragments.details.CameraXFragment;
 import com.schneewittchen.rosandroid.viewmodel.MainViewModel;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
@@ -103,6 +104,9 @@ public class MainFragment extends Fragment implements OnBackPressedListener {
                         break;
                     case "SSH":
                         navController.navigate(R.id.action_to_sshFragment);
+                        break;
+                    case "Camera":
+                        navController.navigate(R.id.action_to_camerax_fragment);
                         break;
                     default:
                         navController.navigate(R.id.action_to_vizFragment);

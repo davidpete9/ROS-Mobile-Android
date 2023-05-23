@@ -38,7 +38,7 @@ import java.util.List;
  */
 @Database(entities =
         {ConfigEntity.class, MasterEntity.class, WidgetStorageData.class, SSHEntity.class},
-        version = 6, exportSchema = false)
+        version = 7, exportSchema = false)
 public abstract class DataStorage extends RoomDatabase {
 
     private static final String TAG = DataStorage.class.getCanonicalName();

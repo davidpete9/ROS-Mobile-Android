@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey;
  * TODO: Description
  *
  * @author Nils Rottmann
- * @version 1.0.0
+ * @version 1.0.1
  * @created on 04.06.20
  */
 
@@ -23,4 +23,7 @@ public class SSHEntity {
     public int port = 22;
     public String username = "pi";
     public String password = "raspberry";
+    public int host_port = -1;
+    public String remote_host = "-";
+    public int remote_port = -1;
 }

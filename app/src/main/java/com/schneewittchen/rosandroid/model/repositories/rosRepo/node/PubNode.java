@@ -1,5 +1,7 @@
 package com.schneewittchen.rosandroid.model.repositories.rosRepo.node;
 
+import android.util.Log;
+
 import com.schneewittchen.rosandroid.model.entities.widgets.BaseEntity;
 import com.schneewittchen.rosandroid.model.entities.widgets.PublisherLayerEntity;
 
@@ -21,17 +23,17 @@ import java.util.TimerTask;
  */
 public class PubNode extends AbstractNode {
 
-    private Publisher<Message> publisher;
-    private BaseData lastData;
-    private Timer pubTimer;
-    private long pubPeriod = 100L;
-    private boolean immediatePublish = true;
+    protected Publisher<Message> publisher;
+    protected BaseData lastData;
+    protected Timer pubTimer;
+    protected long pubPeriod = 100L;
+    protected boolean immediatePublish = true;
 
 
     @Override
     public void onStart(ConnectedNode parentNode) {
         publisher = parentNode.newPublisher(topic.name, topic.type);
-
+        Log.i("CAMTEST","ONSTART");
         this.createAndStartSchedule();
     }
 
@@ -69,7 +71,7 @@ public class PubNode extends AbstractNode {
         this.immediatePublish = flag;
     }
 
-    private void createAndStartSchedule() {
+    protected void createAndStartSchedule() {
         if (pubTimer != null) {
             pubTimer.cancel();
         }
@@ -85,9 +87,10 @@ public class PubNode extends AbstractNode {
                 publish();
             }
         }, pubPeriod, pubPeriod);
+        Log.d("IMUTEST","Timer set up.");
     }
 
-    private void publish() {
+    protected void publish() {
         if (publisher == null) {
             return;
         }
